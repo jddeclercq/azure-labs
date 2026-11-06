@@ -8,14 +8,7 @@ A company wants its web application to sign users in with Microsoft Entra ID, ma
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Users["Users<br/>Admin, Developer, Reader"] --> Group["Security group"]
-    Group -- "assigned to" --> EA["Enterprise application"]
-    AppReg["App registration<br/>redirect URI, Graph User.Read,<br/>client secret"] --- EA
-    CA["Conditional Access policy<br/>require MFA"] -. "applies at sign-in" .-> EA
-    EA --> Logs["Sign-in logs"]
-```
+![Diagram](diagrams/diagram-1.png)
 
 ## What I built
 

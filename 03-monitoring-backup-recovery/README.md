@@ -8,15 +8,7 @@ A company wants to spot performance problems early, recover data after a failure
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    VM["vm-web01<br/>(primary region)"] -- "Azure Monitor Agent" --> LAW[("Log Analytics workspace")]
-    VM -- "CPU metric" --> Alert["Metric alert<br/>CPU > 80%"]
-    Alert --> AG["Action group<br/>email notification"]
-    VM -- "daily backup" --> RSV[("Recovery Services vault<br/>backup policy: daily, 7-day retention")]
-    VM -- "replication" --> ASR["Site Recovery<br/>secondary region"]
-    LAW --> KQL["KQL queries<br/>and charts"]
-```
+![Diagram](diagrams/diagram-1.png)
 
 ## What I built
 

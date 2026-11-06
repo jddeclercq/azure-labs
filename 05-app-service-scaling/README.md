@@ -8,18 +8,7 @@ A company wants to host a web application on Azure App Service, test new version
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Users([Users]) --> Prod["Production slot"]
-    subgraph Plan["App Service plan (Standard tier)"]
-        Prod
-        Staging["Staging slot"]
-    end
-    Staging -- "swap after testing" --> Prod
-    Plan -- "CPU > 70% for 10 min" --> Scale["Autoscale: +1 instance"]
-    Prod -- "scheduled + manual" --> Backup[("App backups")]
-    Prod -- metrics --> Alerts["Metric alerts"]
-```
+![Diagram](diagrams/diagram-1.png)
 
 ## What I built
 

@@ -8,19 +8,7 @@ A company needs a secure storage account, with network isolation between its web
 
 ## Architecture
 
-```mermaid
-flowchart TB
-    Internet([Internet]) -- "HTTPS 443 only" --> NSG[nsg-web]
-    subgraph VNET["vnet-p2"]
-        NSG --> Web["snet-web<br/>10.0.1.0/27"]
-        subgraph DB["snet-db 10.0.2.0/27"]
-            PE["Private endpoint<br/>pe-stp2-blob"]
-        end
-    end
-    PE -- "Private Link" --> SA[("Storage account: stp2jd2611<br/>Public network access: Disabled")]
-    DNS["Private DNS zone<br/>privatelink.blob.core.windows.net"] -. "linked to VNet" .-> VNET
-    DNS -. "A record: stp2jd2611 → private IP" .-> PE
-```
+![Diagram](diagrams/diagram-1.png)
 
 ## What I built
 

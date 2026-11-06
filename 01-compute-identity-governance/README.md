@@ -8,19 +8,7 @@ A company needs a virtual machine for a web application. It must be secured with
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    Admin([Admin PC]) -- "SSH 22 only" --> NSG[NSG]
-    subgraph RG["Resource group: rg-az104-p1 (East US)"]
-        NSG --> VM["vm-web01<br/>Ubuntu, B-series<br/>Static private IP 172.16.0.4"]
-        VM --- Disk[("Data disk<br/>Standard SSD")]
-        KV["Key Vault: kv-az104-jd01<br/>RBAC permission model"]
-        KV --- Secret["Secret: vm-web01-ssh-key"]
-    end
-    Group["Entra group:<br/>grp-kv-secrets-officers"] -- "Key Vault data role" --> KV
-    Policy["Azure Policy<br/>required tags, allowed locations,<br/>naming convention"] -. governs .-> RG
-    Budget["Budget + alerts"] -. monitors cost .-> RG
-```
+![Diagram](diagrams/diagram-1.png)
 
 ## What I built
 
