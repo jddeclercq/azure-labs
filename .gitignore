@@ -1,0 +1,14 @@
+# Never commit keys or secrets
+*.pem
+*.key
+*.pfx
+*.publishsettings
+*.env
+.env*
+*sas*.txt
+*connection-string*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
