@@ -42,6 +42,7 @@ flowchart TB
 - Integrated it with the private DNS zone **privatelink.blob.core.windows.net**, linked to the VNet, so the normal storage name resolves to the **private IP** from inside the network.
 
 ### 4. Testing access
+- Because public network access was disabled, my own PC (outside the VNet) couldn't reach the account. To test from it, I **temporarily allowed public access from my own public IP address only** (selected networks), then **disabled public access again** once testing was done.
 - Generated a **shared access signature (SAS)** with limited permissions and an expiry time.
 - Connected with **Azure Storage Explorer** using the SAS URL, created a container, and uploaded and downloaded files.
 - Uploaded a test file from the command line with **AzCopy**:
@@ -71,6 +72,8 @@ azcopy copy "file-to-upload.txt" "https://<account>.blob.core.windows.net/<conta
 - The redeployment from the Template Spec completed successfully.
 
 ## What I learned
+
+- **A SAS is not a network bypass.** It grants permission, but the storage firewall still decides whether the connection is allowed at all. With public access disabled, a valid SAS from outside the VNet is still blocked.
 
 - **Private endpoint DNS** is the part that makes or breaks it: the private endpoint needs a `privatelink` zone with an A record, linked to the VNet. Without it, the name still resolves to the public IP.
 - **Auto-registration** on a private DNS zone only creates records for VMs, not for private endpoints.

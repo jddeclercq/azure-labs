@@ -18,7 +18,7 @@ flowchart LR
         KV --- Secret["Secret: vm-web01-ssh-key"]
     end
     Group["Entra group:<br/>grp-kv-secrets-officers"] -- "Key Vault data role" --> KV
-    Policy["Azure Policy initiative"] -. governs .-> RG
+    Policy["Azure Policy<br/>required tags, allowed locations,<br/>naming convention"] -. governs .-> RG
     Budget["Budget + alerts"] -. monitors cost .-> RG
 ```
 
@@ -41,9 +41,12 @@ flowchart LR
 - Verified group membership and role assignments in Entra ID and the VM's **Access control (IAM)** blade.
 
 ### 4. Governance with Azure Policy
-- Built a **policy initiative** (a group of policy definitions) with **initiative parameters**, so values like tag names and allowed values are set once at assignment.
-- Included definitions to **inherit tags** from the resource group and subscription, and to restrict **allowed resource types**.
-- Assigned the initiative and checked compliance from **VM → Operations → Policies**.
+Assigned three policies, **scoped to the lab's resource group** so they couldn't affect anything else in the subscription:
+- **Require a tag** on resources, so every resource can be traced to an owner, project or cost centre.
+- **Allowed locations**, so resources can only be created in approved regions.
+- **Naming convention**, so resource names follow a consistent pattern.
+
+Then tested that non-compliant deployments were **denied**, and checked compliance from **VM → Operations → Policies**.
 
 ### 5. Cost management
 - Created a monthly **budget** with alert thresholds at **50%, 80% and 100%**.
@@ -58,14 +61,14 @@ flowchart LR
 | Key Vault with the RBAC model | Access is managed with the same Azure roles as everything else, and plain Contributors can't grant themselves access to secrets |
 | Roles assigned to a group | Adding or removing a person is a group change, not a role change |
 | Virtual Machine Contributor | Least privilege: manage the VM, but no OS sign-in and no ability to grant access |
-| Policy initiative with parameters | One assignment governs many rules, and values can change without editing definitions |
+| Policies scoped to the resource group | Enforces the rules on this workload without breaking other projects in the subscription |
 
 ## Validation
 
 - Connected to the VM over **SSH from my own PC** using the private key.
 - Browsed to the VM's public IP over HTTPS and confirmed it was **not reachable**, because the NSG only allows SSH.
 - Confirmed the secret was stored and **enabled** in Key Vault.
-- Checked the VM's **policy compliance** state after assigning the initiative.
+- Tried deploying resources **without the required tag, in a non-allowed region and with a non-compliant name**, and confirmed each was **denied** by policy.
 
 ## Screenshots
 

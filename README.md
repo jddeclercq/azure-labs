@@ -16,7 +16,7 @@ Each project starts from a realistic business scenario, is built in the Azure po
 
 ## Skills demonstrated
 
-- **Identity and governance:** Entra ID users and groups, Azure RBAC with least privilege, Azure Policy initiatives, Conditional Access and MFA, budgets
+- **Identity and governance:** Entra ID users and groups, Azure RBAC with least privilege, Azure Policy (tagging, allowed locations, naming), Conditional Access and MFA, budgets
 - **Storage:** storage account security, SAS tokens, private endpoints and private DNS, AzCopy and Storage Explorer
 - **Compute:** Linux VMs with SSH key authentication, managed disks, static private IPs, App Service plans, slots and autoscale
 - **Networking:** VNet and subnet design, NSG rules, service endpoints vs private endpoints
